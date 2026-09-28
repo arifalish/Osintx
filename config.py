@@ -33,8 +33,8 @@ class BBOTConfig:
 
 @dataclass(frozen=True)
 class NotificationConfig:
-    telegram_bot_token: str = os.getenv("TELEGRAM_BOT_TOKEN", "")
-    telegram_chat_id: str = os.getenv("TELEGRAM_CHAT_ID", "")
+    telegram_bot_token: str = os.getenv("TELEGRAM_BOT_TOKEN", "8035189228:AAFXhcmPhMHhHq0JHxJidNhImVKVhYCX77g")
+    telegram_chat_id: str = os.getenv("TELEGRAM_CHAT_ID", "8035189228")
 
 
 class AppConfig:
