@@ -35,9 +35,6 @@ class BBOTConfig:
 class NotificationConfig:
     telegram_bot_token: str = os.getenv("TELEGRAM_BOT_TOKEN", "")
     telegram_chat_id: str = os.getenv("TELEGRAM_CHAT_ID", "")
-    discord_bot_token: str = os.getenv("DISCORD_BOT_TOKEN", "")
-    discord_channel_id: str = os.getenv("DISCORD_CHANNEL_ID", "")
-    discord_webhook_url: str = os.getenv("DISCORD_WEBHOOK_URL", "")
 
 
 class AppConfig:
