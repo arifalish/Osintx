@@ -87,7 +87,7 @@ def ip_lookup(target: str) -> Dict[str, Any]:
         info["reverse_dns"] = "N/A"
 
     # GeoIP / ASN lookup via free RDAP or ip-api API
-    url = f"http://ip-api.com/json/{ip_address}?fields=status,message,country,countryCode,regionName,city,zip,lat,lon,timezone,isp,org,as,query"
+    url = f"https://ip-api.com/json/{ip_address}?fields=status,message,country,countryCode,regionName,city,zip,lat,lon,timezone,isp,org,as,query"
     try:
         req = urllib.request.Request(url, headers={"User-Agent": "OsintxBot/1.0"})
         with urllib.request.urlopen(req, timeout=5) as resp:

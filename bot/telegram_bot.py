@@ -21,6 +21,21 @@ BOT_TOKEN = cfg.notifications.telegram_bot_token
 CHAT_ID = cfg.notifications.telegram_chat_id
 
 
+def delete_webhook() -> bool:
+    """Clear active webhook if present so getUpdates long-polling works without HTTP 409 Conflict."""
+    if not BOT_TOKEN:
+        return False
+    url = f"https://api.telegram.org/bot{BOT_TOKEN}/deleteWebhook"
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "OsintxBot/1.0"})
+        with urllib.request.urlopen(req, timeout=5) as resp:
+            data = json.loads(resp.read().decode("utf-8"))
+            return data.get("ok", False)
+    except Exception as e:
+        logger.warning("Failed to delete webhook: %s", e)
+        return False
+
+
 def send_msg(chat_id: str, text: str, parse_mode: str = "Markdown") -> bool:
     """Send message to a Telegram chat."""
     if not BOT_TOKEN:
@@ -142,6 +157,8 @@ def get_updates(offset: Optional[int] = None, timeout: int = 10) -> Optional[Dic
 
 def run_polling():
     """Continuous polling loop for Telegram Updates."""
+    logger.info("Clearing active webhook for long polling...")
+    delete_webhook()
     logger.info("Starting Osintx Bot Telegram continuous long-polling loop...")
     if CHAT_ID:
         send_msg(CHAT_ID, "🚀 *Osintx Engine Worker is online and active.*")
